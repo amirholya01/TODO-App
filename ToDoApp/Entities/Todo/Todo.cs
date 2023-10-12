@@ -5,7 +5,7 @@ namespace ToDoApp.Entities.Todo
     public class Todo
     {
         [Key]
-        public int MyProperty { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(100, ErrorMessage = "The title can not be more than 100 characters.")]

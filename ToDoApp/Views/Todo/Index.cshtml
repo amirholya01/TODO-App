@@ -1,23 +1,59 @@
-﻿@{
+﻿@using ToDoApp.Entities.Todo;
+
+@model List<Todo>
+@{
     ViewData["Title"] = "List of tasks";
 }
 
 <div class="container shadow-lg p-3 mb-5  rounded">
     <div class="row">
-        <div class="col-md-12">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Task</th>
-                        <th>Is </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
+        @if(Model != null && Model.Any())
+        {
+            <div class="col-md-12">
+                <a asp-controller="Todo" asp-action="Create" class="btn btn-success btn-sm">Add new task</a>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="col">Title</th>
+                            <th class="col">Description</th>
+                            <th class="col">Status</th>
+                            <th class="col">Commands</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                            @foreach (var todo in Model)
+                            {
+                                <tr>
+                                    <td>@todo.Title</td>
+                                    <td>@todo.Description</td>
+                                    <td>
+                                        @if (todo.IsDone)
+                                        {
+                                            <span class="text-success">Done</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-danger">Not Done</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-warning btn-sm">Edit</a>
+                                        <a class="btn btn-danger btn-sm">Delete</a>
 
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                                    </td>
+                                </tr>
+                            }
+                        
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning">
+                No Task....
+            </div>
+        }
     </div>
 </div>
